@@ -45,5 +45,28 @@
 } while (0)
 #endif
 
+static inline int
+lz_atoi(const char * line, size_t n) {
+    int value;
+
+    if (lz_unlikely(n == 0)) {
+        return 0;
+    }
+
+    for (value = 0; n--; line++) {
+        if (lz_unlikely(*line < '0' || *line > '9')) {
+            return -1;
+        }
+
+        value = value * 10 + (*line - '0');
+    }
+
+    if (value < 0) {
+        return -1;
+    } else {
+        return value;
+    }
+}
+
 #endif
 
