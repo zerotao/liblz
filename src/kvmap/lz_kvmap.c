@@ -70,7 +70,7 @@ lz_kvmap_new(uint32_t n_buckets) {
 
 static inline void
 _lz_kvmap_ent_free(lz_kvmap_ent * ent) {
-    if (ts_unlikely(ent == NULL)) {
+    if (lz_unlikely(ent == NULL)) {
         return;
     }
 
@@ -91,7 +91,7 @@ _lz_kvmap_add(lz_kvmap * map, const char * key, size_t klen, void * val, void (*
     bucket         = hash & (map->n_buckets - 1);
 
     ent            = malloc(sizeof(lz_kvmap_ent) + klen + 1);
-    ts_alloc_assert(ent);
+    lz_alloc_assert(ent);
 
     ent->key[klen] = '\0';
     memcpy(ent->key, key, klen);

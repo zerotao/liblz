@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(LibLZ)
 
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
 option(ENABLE_STATIC "Enable Static Libraries" Off)
 option(ENABLE_SHARED "Enable Shared Libraries [DEFAULT]" On)
 
@@ -40,10 +42,6 @@ IF("${isSystemDir}" STREQUAL "-1")
    set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 endif("${isSystemDir}" STREQUAL "-1")
 
-
-
-
-
 include(CheckCCompilerFlag)
 
 check_c_compiler_flag(-fvisibility=hidden HAS_VISIBILITY_HIDDEN)
@@ -53,7 +51,18 @@ if(HAS_VISIBILITY_HIDDEN)
 		add_definitions(-DHAS_VISIBILITY_HIDDEN)
 endif()
 
+find_library(LIBLUA NAMES lua-5.1 luajit-5.1)
+find_path(LIBLUA_PATH lua.h /usr/include/luajit-2.0 /usr/local/include/luajit-2.0 /usr/include/lua5.1 /usr/local/include/lua5.1)
 
+if (LIBLUA)
+		message(STATUS "Lua found " ${LIBLUA} " " ${LIBLUA_PATH})
+
+		if (LIBLUA_PATH)
+				include_directories(${LIBLUA_PATH})
+		endif()
+else()
+		message(STATUS "Lua not found, will not use")
+endif()
 
 include_directories(
 		${LIBLZ_INC_PATH}
@@ -61,5 +70,8 @@ include_directories(
 )
 
 
+#enable_testing()
 
 add_subdirectory(src)
+
+#@add_subdirectory(tests)

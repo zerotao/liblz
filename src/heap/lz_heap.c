@@ -68,15 +68,15 @@ static void
 _lz_heap_free(lz_heap * heap, void * d) {
     lz_heap_page * page;
 
-    if (ts_unlikely(heap == NULL)) {
+    if (lz_unlikely(heap == NULL)) {
         return;
     }
 
-    ts_assert(d != NULL);
+    lz_assert(d != NULL);
 
     page = (lz_heap_page *)((char *)(d - offsetof(lz_heap_page, data)));
-    ts_assert(page != NULL);
-    ts_assert(page->data == d);
+    lz_assert(page != NULL);
+    lz_assert(page->data == d);
 
     SLIST_REMOVE(&heap->page_list_used, page, lz_heap_page_s, next);
     SLIST_INSERT_HEAD(&heap->page_list_free, page, next);
@@ -96,7 +96,7 @@ _lz_heap_alloc(lz_heap * heap) {
     }
 
     page = SLIST_FIRST(&heap->page_list_free);
-    ts_assert(page != NULL);
+    lz_assert(page != NULL);
 
     SLIST_REMOVE(&heap->page_list_free, page, lz_heap_page_s, next);
     SLIST_INSERT_HEAD(&heap->page_list_used, page, next);

@@ -86,6 +86,16 @@
         }                                           \
     } while (0)
 
+#define lz_str3_cmp(m, c0, c1, c2, c3) \
+    *(uint32_t *)m == ((c3 << 24) | (c2 << 16) | (c1 << 8) | c0)
+
+#define lz_str6_cmp(m, c0, c1, c2, c3, c4, c5)                   \
+    *(uint32_t *)m == ((c3 << 24) | (c2 << 16) | (c1 << 8) | c0) \
+    && (((uint32_t *)m)[1] & 0xffff) == ((c5 << 8) | c4)
+
+#define lz_str30_cmp(m, c0, c1, c2, c3) \
+    *(uint32_t *)m == ((c3 << 24) | (c2 << 16) | (c1 << 8) | c0)
+
 static inline int
 lz_atoi(const char * line, size_t n) {
     int value;

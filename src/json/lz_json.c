@@ -509,7 +509,7 @@ lz_json_parse_null(const char * data, size_t len, size_t * n_read) {
         return NULL;
     }
 
-    if (!lz_str30cmp(data, 'n', 'u', 'l', 'l')) {
+    if (!lz_str30_cmp(data, 'n', 'u', 'l', 'l')) {
         return NULL;
     }
 
