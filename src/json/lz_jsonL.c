@@ -112,8 +112,6 @@ _lz_j_string_to_lua(lz_json * json, lua_State * L) {
     return 0;
 }
 
-EXPORT_SYMBOL(lz_json_to_lua);
-
 int
 lz_json_to_lua(lz_json * json, lua_State * L) {
     if (!json || !L) {
@@ -213,8 +211,6 @@ _lz_j_from_lua(lua_State * L) {
 
     return _lz_j_from_lua_idx(L, -1);
 }
-
-EXPORT_SYMBOL(lz_json_from_lua);
 
 lz_json *
 lz_json_from_lua(lua_State * L) {

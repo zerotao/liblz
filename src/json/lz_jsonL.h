@@ -15,7 +15,7 @@
  *
  * @return
  */
-int lz_json_to_lua(lz_json * json, lua_State * L);
+LZ_EXPORT int lz_json_to_lua(lz_json * json, lua_State * L);
 
 
 /**
@@ -25,7 +25,7 @@ int lz_json_to_lua(lz_json * json, lua_State * L);
  *
  * @return
  */
-lz_json * lz_json_from_lua(lua_State * L);
+LZ_EXPORT lz_json * lz_json_from_lua(lua_State * L);
 
 #endif
 
