@@ -51,8 +51,8 @@ if(HAS_VISIBILITY_HIDDEN)
 		add_definitions(-DHAS_VISIBILITY_HIDDEN)
 endif()
 
-find_library(LIBLUA NAMES lua-5.1 luajit-5.1)
-find_path(LIBLUA_PATH lua.h /usr/include/luajit-2.0 /usr/local/include/luajit-2.0 /usr/include/lua5.1 /usr/local/include/lua5.1)
+find_library(LIBLUA NAMES lua-5.1 lua5.1 luajit-5.1 luajit5.1)
+find_path(LIBLUA_PATH lua.h /usr/include/lua5.1 /usr/local/include/lua5.1 /usr/include/luajit-2.0 /usr/local/include/luajit-2.0)
 
 if (LIBLUA)
 		message(STATUS "Lua found " ${LIBLUA} " " ${LIBLUA_PATH})
