@@ -1034,8 +1034,16 @@ lz_json_string_new(const char * str) {
 
 EXPORT_SYMBOL(lz_json_string_new_len);
 
+#ifdef __linux__
 lz_json *
 lz_json_string_new_len(const char * str, size_t size) __attribute__((weak, alias("_lz_j_string_new")));
+#else
+lz_json *
+lz_json_string_new_len(const char * str, size_t size) {
+    return _lz_j_string_new(str, size);
+}
+#endif
+
 
 EXPORT_SYMBOL(lz_json_number_new);
 

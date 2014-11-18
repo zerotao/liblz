@@ -126,9 +126,17 @@ lz_kvmap_add(lz_kvmap * map, const char * key, void * val, void (* freefn)(void 
 
 EXPORT_SYMBOL(lz_kvmap_add_wklen);
 
+#ifdef __LINUX__
 lz_kvmap_ent *
 lz_kvmap_add_wklen(lz_kvmap * map, const char * k, size_t l, void * val,
     void (* freefn)(void *)) __attribute__((weak, alias("_lz_kvmap_add")));
+#else
+lz_kvmap_ent *
+lz_kvmap_add_wklen(lz_kvmap * map, const char * k, size_t l, void * val,
+    void (* freefn)(void *)) {
+   return _lz_kvmap_add(map, k, l, val, freefn);
+}
+#endif
 
 EXPORT_SYMBOL(lz_kvmap_remove_ent);
 
@@ -270,6 +278,8 @@ lz_kvmap_clear(lz_kvmap * map) {
 EXPORT_SYMBOL(lz_kvmap_clear);
 
 
+EXPORT_SYMBOL(lz_kvmap_for_each);
+
 int
 lz_kvmap_for_each(lz_kvmap * map, lz_kvmap_iterfn iterfn, void * arg) {
     lz_kvmap_ent * ent;
@@ -289,7 +299,8 @@ lz_kvmap_for_each(lz_kvmap * map, lz_kvmap_iterfn iterfn, void * arg) {
     return 0;
 }
 
-EXPORT_SYMBOL(lz_kvmap_for_each);
+
+EXPORT_SYMBOL(lz_kvmap_free);
 
 void
 lz_kvmap_free(lz_kvmap * map) {
@@ -312,7 +323,8 @@ lz_kvmap_free(lz_kvmap * map) {
     free(map);
 }
 
-EXPORT_SYMBOL(lz_kvmap_free);
+
+EXPORT_SYMBOL(lz_kvmap_first);
 
 lz_kvmap_ent *
 lz_kvmap_first(lz_kvmap * map) {
@@ -323,8 +335,8 @@ lz_kvmap_first(lz_kvmap * map) {
     return SLIST_FIRST(&map->ent_list);
 }
 
-EXPORT_SYMBOL(lz_kvmap_first);
 
+EXPORT_SYMBOL(lz_kvmap_next);
 
 lz_kvmap_ent *
 lz_kvmap_next(lz_kvmap_ent * ent) {
@@ -335,9 +347,9 @@ lz_kvmap_next(lz_kvmap_ent * ent) {
     return SLIST_NEXT(ent, list_next);
 }
 
-EXPORT_SYMBOL(lz_kvmap_next);
 
 
+EXPORT_SYMBOL(lz_kvmap_ent_get_klen);
 size_t
 lz_kvmap_ent_get_klen(lz_kvmap_ent * ent) {
     if (!ent) {
@@ -347,8 +359,8 @@ lz_kvmap_ent_get_klen(lz_kvmap_ent * ent) {
     return ent->klen;
 }
 
-EXPORT_SYMBOL(lz_kvmap_ent_get_klen);
 
+EXPORT_SYMBOL(lz_kvmap_get_size);
 
 size_t
 lz_kvmap_get_size(lz_kvmap * map) {
@@ -359,7 +371,6 @@ lz_kvmap_get_size(lz_kvmap * map) {
     return map->n_entries;
 }
 
-EXPORT_SYMBOL(lz_kvmap_get_size);
 
 /* magic numbers from http://www.isthe.com/chongo/tech/comp/fnv/ */
 static const uint32_t InitialFNV  = 2166136261U;
