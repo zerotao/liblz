@@ -29,29 +29,6 @@ struct lz_tailq {
 };
 
 
-EXPORT_SYMBOL(lz_tailq_new);
-EXPORT_SYMBOL(lz_tailq_free);
-EXPORT_SYMBOL(lz_tailq_clear);
-EXPORT_SYMBOL(lz_tailq_dup);
-EXPORT_SYMBOL(lz_tailq_elem_new);
-EXPORT_SYMBOL(lz_tailq_elem_free);
-EXPORT_SYMBOL(lz_tailq_append);
-EXPORT_SYMBOL(lz_tailq_append_elem);
-EXPORT_SYMBOL(lz_tailq_prepend);
-EXPORT_SYMBOL(lz_tailq_prepend_elem);
-EXPORT_SYMBOL(lz_tailq_first);
-EXPORT_SYMBOL(lz_tailq_last);
-EXPORT_SYMBOL(lz_tailq_next);
-EXPORT_SYMBOL(lz_tailq_prev);
-EXPORT_SYMBOL(lz_tailq_elem_remove);
-EXPORT_SYMBOL(lz_tailq_for_each);
-EXPORT_SYMBOL(lz_tailq_elem_data);
-EXPORT_SYMBOL(lz_tailq_elem_size);
-EXPORT_SYMBOL(lz_tailq_elem_head);
-EXPORT_SYMBOL(lz_tailq_size);
-EXPORT_SYMBOL(lz_tailq_elem_find);
-EXPORT_SYMBOL(lz_tailq_get_at_index);
-
 static void
 _lz_tailq_freefn(void * data) {
     if (data) {

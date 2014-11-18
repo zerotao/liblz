@@ -58,8 +58,6 @@ struct lz_json_s {
 
 #define _lz_j_type(j) (lz_likely(j) ? j->type : -1)
 
-EXPORT_SYMBOL(lz_json_get_type);
-
 inline lz_json_vtype
 lz_json_get_type(lz_json * js) {
     if (lz_unlikely(js == NULL)) {
@@ -68,8 +66,6 @@ lz_json_get_type(lz_json * js) {
         return js->type;
     }
 }
-
-EXPORT_SYMBOL(lz_json_get_size);
 
 inline ssize_t
 lz_json_get_size(lz_json * js) {
@@ -95,8 +91,6 @@ lz_json_get_size(lz_json * js) {
     return 0;
 }
 
-EXPORT_SYMBOL(lz_json_get_object);
-
 inline lz_kvmap *
 lz_json_get_object(lz_json * js) {
     if (lz_unlikely(js == NULL)) {
@@ -109,8 +103,6 @@ lz_json_get_object(lz_json * js) {
         return js->object;
     }
 }
-
-EXPORT_SYMBOL(lz_json_get_array);
 
 inline lz_tailq *
 lz_json_get_array(lz_json * js) {
@@ -125,8 +117,6 @@ lz_json_get_array(lz_json * js) {
     return js->array;
 }
 
-EXPORT_SYMBOL(lz_json_get_number);
-
 inline unsigned int
 lz_json_get_number(lz_json * js) {
     if (js == NULL) {
@@ -139,8 +129,6 @@ lz_json_get_number(lz_json * js) {
         return js->number;
     }
 }
-
-EXPORT_SYMBOL(lz_json_get_string);
 
 inline const char *
 lz_json_get_string(lz_json * js) {
@@ -155,8 +143,6 @@ lz_json_get_string(lz_json * js) {
     }
 }
 
-EXPORT_SYMBOL(lz_json_get_boolean);
-
 inline bool
 lz_json_get_boolean(lz_json * js) {
     if (js == NULL) {
@@ -169,8 +155,6 @@ lz_json_get_boolean(lz_json * js) {
         return js->boolean;
     }
 }
-
-EXPORT_SYMBOL(lz_json_get_null);
 
 inline char
 lz_json_get_null(lz_json * js) {
@@ -331,8 +315,6 @@ _lz_j_array_add(lz_json * dst, lz_json * src) {
     return 0;
 }
 
-EXPORT_SYMBOL(lz_json_parse_string);
-
 lz_json *
 lz_json_parse_string(const char * data, size_t len, size_t * n_read) {
     unsigned char ch;
@@ -419,14 +401,10 @@ end:
     return js;
 } /* lz_json_parse_string */
 
-EXPORT_SYMBOL(lz_json_parse_key);
-
 lz_json *
 lz_json_parse_key(const char * data, size_t len, size_t * n_read) {
     return lz_json_parse_string(data, len, n_read);
 }
-
-EXPORT_SYMBOL(lz_json_parse_number);
 
 lz_json *
 lz_json_parse_number(const char * data, size_t len, size_t * n_read) {
@@ -461,8 +439,6 @@ lz_json_parse_number(const char * data, size_t len, size_t * n_read) {
 
     return js;
 }
-
-EXPORT_SYMBOL(lz_json_parse_boolean);
 
 inline lz_json *
 lz_json_parse_boolean(const char * data, size_t len, size_t * n_read) {
@@ -501,8 +477,6 @@ lz_json_parse_boolean(const char * data, size_t len, size_t * n_read) {
     return js;
 }
 
-EXPORT_SYMBOL(lz_json_parse_null);
-
 inline __attribute__((always_inline)) lz_json *
 lz_json_parse_null(const char * data, size_t len, size_t * n_read) {
     if (len < 4) {
@@ -517,8 +491,6 @@ lz_json_parse_null(const char * data, size_t len, size_t * n_read) {
 
     return _lz_j_null_new();
 }
-
-EXPORT_SYMBOL(lz_json_parse_value);
 
 lz_json *
 lz_json_parse_value(const char * data, size_t len, size_t * n_read) {
@@ -551,8 +523,6 @@ lz_json_parse_value(const char * data, size_t len, size_t * n_read) {
     *n_read = 0;
     return NULL;
 }
-
-EXPORT_SYMBOL(lz_json_parse_array);
 
 lz_json *
 lz_json_parse_array(const char * data, size_t len, size_t * n_read) {
@@ -641,8 +611,6 @@ end:
 
     return js;
 } /* lz_json_parse_array */
-
-EXPORT_SYMBOL(lz_json_parse_object);
 
 lz_json *
 lz_json_parse_object(const char * data, size_t len, size_t * n_read) {
@@ -754,8 +722,6 @@ end:
     return js;
 } /* lz_json_parse_object */
 
-EXPORT_SYMBOL(lz_json_parse_buf);
-
 lz_json *
 lz_json_parse_buf(const char * data, size_t len, size_t * n_read) {
     unsigned char ch;
@@ -811,8 +777,6 @@ lz_json_parse_buf(const char * data, size_t len, size_t * n_read) {
 
     return js;
 }         /* lz_json_parse_buf */
-
-EXPORT_SYMBOL(lz_json_parse_file);
 
 lz_json *
 lz_json_parse_file(const char * filename, size_t * bytes_read) {
@@ -876,8 +840,6 @@ lz_json_parse_file(const char * filename, size_t * bytes_read) {
     return json;
 } /* lz_json_parse_file */
 
-EXPORT_SYMBOL(lz_json_free);
-
 void
 lz_json_free(lz_json * js) {
     if (js == NULL) {
@@ -918,10 +880,7 @@ enum path_state {
     path_state_reading_array_end
 };
 
-
-EXPORT_SYMBOL(lz_json_get_array_index);
-
-inline __attribute__((always_inline)) lz_json *
+inline lz_json *
 lz_json_get_array_index(lz_json * array, int offset) {
     if (array == NULL || offset < 0) {
         return NULL;
@@ -929,8 +888,6 @@ lz_json_get_array_index(lz_json * array, int offset) {
 
     return _array_index(array, offset);
 }
-
-EXPORT_SYMBOL(lz_json_path_get);
 
 lz_json *
 lz_json_path_get(lz_json * js, const char * path) {
@@ -1011,28 +968,20 @@ lz_json_path_get(lz_json * js, const char * path) {
     return (prev != js) ? prev : NULL;
 } /* lz_json_path_get */
 
-EXPORT_SYMBOL(lz_json_new_object);
-
-inline __attribute__((always_inline)) lz_json *
+inline lz_json *
 lz_json_new_object(void) {
     return _lz_j_object_new();
 }
 
-EXPORT_SYMBOL(lz_json_new_array);
-
-inline __attribute__((always_inline)) lz_json *
+inline lz_json *
 lz_json_new_array(void) {
     return _lz_j_array_new();
 }
 
-EXPORT_SYMBOL(lz_json_string_new);
-
-inline __attribute__((always_inline)) lz_json *
+inline lz_json *
 lz_json_string_new(const char * str) {
     return _lz_j_string_new(str, str ? strlen(str) : 0);
 }
-
-EXPORT_SYMBOL(lz_json_string_new_len);
 
 #ifdef __linux__
 lz_json *
@@ -1044,29 +993,20 @@ lz_json_string_new_len(const char * str, size_t size) {
 }
 #endif
 
-
-EXPORT_SYMBOL(lz_json_number_new);
-
-inline __attribute__((always_inline)) lz_json *
+inline lz_json *
 lz_json_number_new(unsigned int num) {
     return _lz_j_number_new(num);
 }
 
-EXPORT_SYMBOL(lz_json_boolean_new);
-
-inline __attribute__((always_inline)) lz_json *
+inline lz_json *
 lz_json_boolean_new(bool boolean) {
     return _lz_j_boolean_new(boolean);
 }
 
-EXPORT_SYMBOL(lz_json_null_new);
-
-inline __attribute__((always_inline)) lz_json *
+inline lz_json *
 lz_json_null_new(void) {
     return _lz_j_null_new();
 }
-
-EXPORT_SYMBOL(lz_json_object_add);
 
 inline int
 lz_json_object_add(lz_json * obj, const char * key, lz_json * val) {
@@ -1077,8 +1017,6 @@ lz_json_object_add(lz_json * obj, const char * key, lz_json * val) {
     return _lz_j_object_add(obj, key, val);
 }
 
-EXPORT_SYMBOL(lz_json_object_add_klen);
-
 inline int
 lz_json_object_add_klen(lz_json * obj, const char * k, size_t klen, lz_json * v) {
     if (lz_unlikely(obj == NULL)) {
@@ -1088,14 +1026,10 @@ lz_json_object_add_klen(lz_json * obj, const char * k, size_t klen, lz_json * v)
     return _lz_j_object_add_klen(obj, k, klen, v);
 }
 
-EXPORT_SYMBOL(lz_json_array_add);
-
-inline __attribute__((always_inline)) int
+inline int
 lz_json_array_add(lz_json * array, lz_json * val) {
     return _lz_j_array_add(array, val);
 }
-
-EXPORT_SYMBOL(lz_json_add);
 
 int
 lz_json_add(lz_json * obj, const char * key, lz_json * val) {
@@ -1485,8 +1419,6 @@ lz_json_to_buffer(lz_json * json, char * buf, size_t buf_len) {
     return jbuf.written;
 }
 
-EXPORT_SYMBOL(lz_json_to_buffer);
-
 ssize_t
 lz_json_to_buffer_nescp(lz_json * json, char * buf, size_t buf_len) {
     struct __lzjbuf jbuf = {
@@ -1504,8 +1436,6 @@ lz_json_to_buffer_nescp(lz_json * json, char * buf, size_t buf_len) {
 
     return jbuf.written;
 }
-
-EXPORT_SYMBOL(lz_json_to_buffer_nescp);
 
 char *
 lz_json_to_buffer_alloc(lz_json * json, size_t * len) {
@@ -1530,8 +1460,6 @@ lz_json_to_buffer_alloc(lz_json * json, size_t * len) {
 
     return jbuf.buf;
 }
-
-EXPORT_SYMBOL(lz_json_to_buffer_alloc);
 
 static inline int _lz_j_compare(lz_json * j1, lz_json * j2, lz_json_key_filtercb cb);
 
@@ -1747,8 +1675,6 @@ _lz_j_compare(lz_json * j1, lz_json * j2, lz_json_key_filtercb cb) {
 
     return 0;
 }
-
-EXPORT_SYMBOL(lz_json_compare);
 
 inline int
 lz_json_compare(lz_json * j1, lz_json * j2, lz_json_key_filtercb cb) {

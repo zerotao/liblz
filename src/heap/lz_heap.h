@@ -1,6 +1,8 @@
 #ifndef __LZ_HEAP_H__
 #define __LZ_HEAP_H__
 
+#include "liblz.h"
+
 struct lz_heap_s;
 
 typedef struct lz_heap_s lz_heap;
@@ -14,7 +16,7 @@ typedef struct lz_heap_s lz_heap;
  *
  * @return NULL on error
  */
-lz_heap * lz_heap_new(size_t size, size_t nelem);
+LZ_EXPORT lz_heap * lz_heap_new(size_t size, size_t nelem);
 
 
 /**
@@ -26,7 +28,7 @@ lz_heap * lz_heap_new(size_t size, size_t nelem);
  *
  * @return a block of data
  */
-void * lz_heap_alloc(lz_heap * heap);
+LZ_EXPORT void * lz_heap_alloc(lz_heap * heap);
 
 
 /**
@@ -35,7 +37,7 @@ void * lz_heap_alloc(lz_heap * heap);
  * @param heap
  * @param d data that was returned from lz_heap_alloc()
  */
-void lz_heap_free(lz_heap * heap, void * d);
+LZ_EXPORT void lz_heap_free(lz_heap * heap, void * d);
 
 #endif
 

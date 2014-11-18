@@ -23,7 +23,7 @@ typedef int (*lz_json_key_filtercb)(const char * key, lz_json * val);
  *
  * @return lz_json context with a vtype of 'lz_json_vtype_object'
  */
-lz_json * lz_json_new_object(void);
+LZ_EXPORT lz_json * lz_json_new_object(void);
 
 
 /**
@@ -31,7 +31,7 @@ lz_json * lz_json_new_object(void);
  *
  * @return lz_json context with a vtype of 'lz_json_vtype_array'
  */
-lz_json * lz_json_new_array(void);
+LZ_EXPORT lz_json * lz_json_new_array(void);
 
 
 /**
@@ -40,7 +40,7 @@ lz_json * lz_json_new_array(void);
  *
  * @param js
  */
-void lz_json_free(lz_json * js);
+LZ_EXPORT void lz_json_free(lz_json * js);
 
 /**
  * @brief creates a lz_json context for a null terminated string
@@ -50,7 +50,7 @@ void lz_json_free(lz_json * js);
  *
  * @return lz_json context with vtype of 'lz_json_vtype_string'
  */
-lz_json * lz_json_string_new(const char * str);
+LZ_EXPORT lz_json * lz_json_string_new(const char * str);
 
 
 /**
@@ -62,7 +62,7 @@ lz_json * lz_json_string_new(const char * str);
  *
  * @return
  */
-lz_json * lz_json_string_new_len(const char * str, size_t len);
+LZ_EXPORT lz_json * lz_json_string_new_len(const char * str, size_t len);
 
 
 /**
@@ -73,7 +73,7 @@ lz_json * lz_json_string_new_len(const char * str, size_t len);
  *
  * @return lz_json context with vtype of 'lz_json_vtype_number'
  */
-lz_json * lz_json_number_new(unsigned int num);
+LZ_EXPORT lz_json * lz_json_number_new(unsigned int num);
 
 
 /**
@@ -83,7 +83,7 @@ lz_json * lz_json_number_new(unsigned int num);
  *
  * @return lz_json context with vtype of 'lz_json_vtype_bool'
  */
-lz_json * lz_json_boolean_new(bool boolean);
+LZ_EXPORT lz_json * lz_json_boolean_new(bool boolean);
 
 
 /**
@@ -91,9 +91,7 @@ lz_json * lz_json_boolean_new(bool boolean);
  *
  * @return lz_json context with vtype of 'lz_json_vtype_null'
  */
-lz_json * lz_json_null_new(void);
-
-
+LZ_EXPORT lz_json * lz_json_null_new(void);
 
 /**
  * @brief parse a buffer containing raw json and convert it to the
@@ -106,8 +104,7 @@ lz_json * lz_json_null_new(void);
  *
  * @return lz_json context if valid json, NULL on error (also see n_read above)
  */
-lz_json * lz_json_parse_buf(const char * data, size_t len, size_t * n_read);
-
+LZ_EXPORT lz_json * lz_json_parse_buf(const char * data, size_t len, size_t * n_read);
 
 /**
  * @brief wrapper around lz_json_parse_buf but opens, reads, parses, and closes
@@ -118,22 +115,19 @@ lz_json * lz_json_parse_buf(const char * data, size_t len, size_t * n_read);
  *
  * @return see lz_json_parse_buf
  */
-lz_json * lz_json_parse_file(const char * filename, size_t * n_read);
-
+LZ_EXPORT lz_json * lz_json_parse_file(const char * filename, size_t * n_read);
 
 /* these next set of parser functions are self explainatory, and will probably be
  * made private in the future.
  */
-lz_json * lz_json_parse_object(const char * data, size_t len, size_t * n_read);
-lz_json * lz_json_parse_array(const char * data, size_t len, size_t * n_read);
-lz_json * lz_json_parse_value(const char * data, size_t len, size_t * n_read);
-lz_json * lz_json_parse_string(const char * data, size_t len, size_t * n_read);
-lz_json * lz_json_parse_number(const char * data, size_t len, size_t * n_read);
-lz_json * lz_json_parse_key(const char * data, size_t len, size_t * n_read);
-lz_json * lz_json_parse_null(const char * data, size_t len, size_t * n_read);
-lz_json * lz_json_parse_boolean(const char * data, size_t len, size_t * n_read);
-
-
+LZ_EXPORT lz_json * lz_json_parse_object(const char * data, size_t len, size_t * n_read);
+LZ_EXPORT lz_json * lz_json_parse_array(const char * data, size_t len, size_t * n_read);
+LZ_EXPORT lz_json * lz_json_parse_value(const char * data, size_t len, size_t * n_read);
+LZ_EXPORT lz_json * lz_json_parse_string(const char * data, size_t len, size_t * n_read);
+LZ_EXPORT lz_json * lz_json_parse_number(const char * data, size_t len, size_t * n_read);
+LZ_EXPORT lz_json * lz_json_parse_key(const char * data, size_t len, size_t * n_read);
+LZ_EXPORT lz_json * lz_json_parse_null(const char * data, size_t len, size_t * n_read);
+LZ_EXPORT lz_json * lz_json_parse_boolean(const char * data, size_t len, size_t * n_read);
 
 /**
  * @brief returns the underlying type of the lz_json context
@@ -142,7 +136,7 @@ lz_json * lz_json_parse_boolean(const char * data, size_t len, size_t * n_read);
  *
  * @return
  */
-lz_json_vtype lz_json_get_type(lz_json * js);
+LZ_EXPORT lz_json_vtype lz_json_get_type(lz_json * js);
 
 
 /**
@@ -153,8 +147,7 @@ lz_json_vtype lz_json_get_type(lz_json * js);
  * @return lz_kvmap on success, NULL if the underlying data
  *         is not an object.
  */
-lz_kvmap * lz_json_get_object(lz_json * js);
-
+LZ_EXPORT lz_kvmap * lz_json_get_object(lz_json * js);
 
 /**
  * @brief returns the underlying lz_tailq ADT for an array
@@ -164,7 +157,7 @@ lz_kvmap * lz_json_get_object(lz_json * js);
  * @return lz_tailq on success, NULL if the underlying data is
  *         not an array.
  */
-lz_tailq * lz_json_get_array(lz_json * js);
+LZ_EXPORT lz_tailq * lz_json_get_array(lz_json * js);
 
 
 /**
@@ -175,7 +168,7 @@ lz_tailq * lz_json_get_array(lz_json * js);
  *
  * @return the lz_json value, NULL if not found
  */
-lz_json * lz_json_get_array_index(lz_json * js, int index);
+LZ_EXPORT lz_json * lz_json_get_array_index(lz_json * js, int index);
 
 
 /**
@@ -185,7 +178,7 @@ lz_json * lz_json_get_array_index(lz_json * js, int index);
  *
  * @return
  */
-unsigned int lz_json_get_number(lz_json * js);
+LZ_EXPORT unsigned int lz_json_get_number(lz_json * js);
 
 
 /**
@@ -195,7 +188,7 @@ unsigned int lz_json_get_number(lz_json * js);
  *
  * @return the string on success, NULL if underlying data is not a string
  */
-const char * lz_json_get_string(lz_json * js);
+LZ_EXPORT const char * lz_json_get_string(lz_json * js);
 
 
 /**
@@ -205,7 +198,7 @@ const char * lz_json_get_string(lz_json * js);
  *
  * @return true or false
  */
-bool lz_json_get_boolean(lz_json * js);
+LZ_EXPORT bool lz_json_get_boolean(lz_json * js);
 
 
 /**
@@ -215,7 +208,7 @@ bool lz_json_get_boolean(lz_json * js);
  *
  * @return 1 if null, -1 if underlying data is not a null
  */
-char lz_json_get_null(lz_json * js);
+LZ_EXPORT char lz_json_get_null(lz_json * js);
 
 
 /**
@@ -228,11 +221,11 @@ char lz_json_get_null(lz_json * js);
  *
  * @return 0 if the underlying type doesn't have a size, otherwise see above
  */
-ssize_t lz_json_get_size(lz_json * js);
+LZ_EXPORT ssize_t lz_json_get_size(lz_json * js);
 
 
 /**
- * @brief fetch lz_json data using a special syntax
+ * @brieffetch lz_json data using a special syntax
  *
  *        if the json is { "a" : 1, "b" : [1, 2, 3, { "foo": "bar" }], "c" : {"hi" : null} }
  *
@@ -247,7 +240,7 @@ ssize_t lz_json_get_size(lz_json * js);
  *
  * @return
  */
-lz_json * lz_json_path_get(lz_json * js, const char * path);
+LZ_EXPORT lz_json * lz_json_path_get(lz_json * js, const char * path);
 
 
 /**
@@ -259,7 +252,7 @@ lz_json * lz_json_path_get(lz_json * js, const char * path);
  *
  * @return
  */
-int lz_json_object_add(lz_json * obj, const char * key, lz_json * val);
+LZ_EXPORT int lz_json_object_add(lz_json * obj, const char * key, lz_json * val);
 
 
 /**
@@ -273,7 +266,7 @@ int lz_json_object_add(lz_json * obj, const char * key, lz_json * val);
  *
  * @return
  */
-int lz_json_object_add_klen(lz_json * o, const char * k, size_t kl, lz_json * v);
+LZ_EXPORT int lz_json_object_add_klen(lz_json * o, const char * k, size_t kl, lz_json * v);
 
 
 /**
@@ -284,7 +277,7 @@ int lz_json_object_add_klen(lz_json * o, const char * k, size_t kl, lz_json * v)
  *
  * @return
  */
-int lz_json_array_add(lz_json * array, lz_json * val);
+LZ_EXPORT int lz_json_array_add(lz_json * array, lz_json * val);
 
 
 /**
@@ -296,7 +289,7 @@ int lz_json_array_add(lz_json * array, lz_json * val);
  *
  * @return
  */
-int lz_json_add(lz_json * obj, const char * k, lz_json * val);
+LZ_EXPORT int lz_json_add(lz_json * obj, const char * k, lz_json * val);
 
 
 /**
@@ -308,7 +301,7 @@ int lz_json_add(lz_json * obj, const char * k, lz_json * val);
  *
  * @return number of bytes copied into the buffer
  */
-ssize_t lz_json_to_buffer(lz_json * json, char * buf, size_t buf_len);
+LZ_EXPORT ssize_t lz_json_to_buffer(lz_json * json, char * buf, size_t buf_len);
 
 
 /**
@@ -320,7 +313,7 @@ ssize_t lz_json_to_buffer(lz_json * json, char * buf, size_t buf_len);
  *
  * @return
  */
-ssize_t lz_json_to_buffer_nescp(lz_json * json, char * buf, size_t buf_len);
+LZ_EXPORT ssize_t lz_json_to_buffer_nescp(lz_json * json, char * buf, size_t buf_len);
 
 
 /**
@@ -331,7 +324,7 @@ ssize_t lz_json_to_buffer_nescp(lz_json * json, char * buf, size_t buf_len);
  *
  * @return
  */
-char * lz_json_to_buffer_alloc(lz_json * json, size_t * len);
+LZ_EXPORT char * lz_json_to_buffer_alloc(lz_json * json, size_t * len);
 
 
 /**
@@ -346,7 +339,7 @@ char * lz_json_to_buffer_alloc(lz_json * json, size_t * len);
  *
  * @return
  */
-int lz_json_compare(lz_json * j1, lz_json * j2, lz_json_key_filtercb cb);
+LZ_EXPORT int lz_json_compare(lz_json * j1, lz_json * j2, lz_json_key_filtercb cb);
 
 #endif
 

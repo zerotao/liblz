@@ -27,10 +27,6 @@ struct lz_heap_s {
 };
 
 
-EXPORT_SYMBOL(lz_heap_alloc);
-EXPORT_SYMBOL(lz_heap_new);
-EXPORT_SYMBOL(lz_heap_free);
-
 static lz_heap_page *
 _lz_heap_page_new(lz_heap * heap) {
     lz_heap_page * page;

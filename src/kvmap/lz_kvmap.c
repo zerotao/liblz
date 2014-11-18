@@ -47,8 +47,6 @@ _align_buckets(uint32_t n) {
     return 1 << ((sizeof(n) * 8) - __builtin_clz(n - 1));
 }
 
-EXPORT_SYMBOL(lz_kvmap_new);
-
 inline lz_kvmap *
 lz_kvmap_new(uint32_t n_buckets) {
     lz_kvmap * map;
@@ -117,14 +115,10 @@ _lz_kvmap_add(lz_kvmap * map, const char * key, size_t klen, void * val, void (*
     return ent;
 } /* _lz_kvmap_add */
 
-EXPORT_SYMBOL(lz_kvmap_add);
-
 inline lz_kvmap_ent *
 lz_kvmap_add(lz_kvmap * map, const char * key, void * val, void (* freefn)(void *)) {
     return _lz_kvmap_add(map, key, strlen(key), val, freefn);
 } /* lz_kvmap_add */
-
-EXPORT_SYMBOL(lz_kvmap_add_wklen);
 
 #ifdef __LINUX__
 lz_kvmap_ent *
@@ -133,12 +127,11 @@ lz_kvmap_add_wklen(lz_kvmap * map, const char * k, size_t l, void * val,
 #else
 lz_kvmap_ent *
 lz_kvmap_add_wklen(lz_kvmap * map, const char * k, size_t l, void * val,
-    void (* freefn)(void *)) {
-   return _lz_kvmap_add(map, k, l, val, freefn);
+                   void (* freefn)(void *)) {
+    return _lz_kvmap_add(map, k, l, val, freefn);
 }
-#endif
 
-EXPORT_SYMBOL(lz_kvmap_remove_ent);
+#endif
 
 int
 lz_kvmap_remove_ent(lz_kvmap * map, lz_kvmap_ent * ent) {
@@ -171,8 +164,6 @@ lz_kvmap_remove_ent(lz_kvmap * map, lz_kvmap_ent * ent) {
     return 0;
 }
 
-EXPORT_SYMBOL(lz_kvmap_remove);
-
 int
 lz_kvmap_remove(lz_kvmap * map, const char * key) {
     lz_kvmap_ent * ent;
@@ -184,8 +175,6 @@ lz_kvmap_remove(lz_kvmap * map, const char * key) {
     return lz_kvmap_remove_ent(map, ent);
 }
 
-EXPORT_SYMBOL(lz_kvmap_ent_val);
-
 inline void *
 lz_kvmap_ent_val(lz_kvmap_ent * ent) {
     if (ent) {
@@ -195,8 +184,6 @@ lz_kvmap_ent_val(lz_kvmap_ent * ent) {
     return NULL;
 }
 
-EXPORT_SYMBOL(lz_kvmap_ent_key);
-
 inline const char *
 lz_kvmap_ent_key(lz_kvmap_ent * ent) {
     if (ent) {
@@ -205,8 +192,6 @@ lz_kvmap_ent_key(lz_kvmap_ent * ent) {
 
     return NULL;
 }
-
-EXPORT_SYMBOL(lz_kvmap_ent_find);
 
 inline lz_kvmap_ent *
 lz_kvmap_ent_find(lz_kvmap * map, const char * key) {
@@ -242,8 +227,6 @@ lz_kvmap_ent_find(lz_kvmap * map, const char * key) {
     return NULL;
 }
 
-EXPORT_SYMBOL(lz_kvmap_find);
-
 void *
 lz_kvmap_find(lz_kvmap * map, const char * key) {
     lz_kvmap_ent * ent;
@@ -275,11 +258,6 @@ lz_kvmap_clear(lz_kvmap * map) {
     return 0;
 }
 
-EXPORT_SYMBOL(lz_kvmap_clear);
-
-
-EXPORT_SYMBOL(lz_kvmap_for_each);
-
 int
 lz_kvmap_for_each(lz_kvmap * map, lz_kvmap_iterfn iterfn, void * arg) {
     lz_kvmap_ent * ent;
@@ -298,9 +276,6 @@ lz_kvmap_for_each(lz_kvmap * map, lz_kvmap_iterfn iterfn, void * arg) {
 
     return 0;
 }
-
-
-EXPORT_SYMBOL(lz_kvmap_free);
 
 void
 lz_kvmap_free(lz_kvmap * map) {
@@ -323,9 +298,6 @@ lz_kvmap_free(lz_kvmap * map) {
     free(map);
 }
 
-
-EXPORT_SYMBOL(lz_kvmap_first);
-
 lz_kvmap_ent *
 lz_kvmap_first(lz_kvmap * map) {
     if (!map) {
@@ -334,9 +306,6 @@ lz_kvmap_first(lz_kvmap * map) {
 
     return SLIST_FIRST(&map->ent_list);
 }
-
-
-EXPORT_SYMBOL(lz_kvmap_next);
 
 lz_kvmap_ent *
 lz_kvmap_next(lz_kvmap_ent * ent) {
@@ -347,9 +316,6 @@ lz_kvmap_next(lz_kvmap_ent * ent) {
     return SLIST_NEXT(ent, list_next);
 }
 
-
-
-EXPORT_SYMBOL(lz_kvmap_ent_get_klen);
 size_t
 lz_kvmap_ent_get_klen(lz_kvmap_ent * ent) {
     if (!ent) {
@@ -359,9 +325,6 @@ lz_kvmap_ent_get_klen(lz_kvmap_ent * ent) {
     return ent->klen;
 }
 
-
-EXPORT_SYMBOL(lz_kvmap_get_size);
-
 size_t
 lz_kvmap_get_size(lz_kvmap * map) {
     if (!map) {
@@ -370,7 +333,6 @@ lz_kvmap_get_size(lz_kvmap * map) {
 
     return map->n_entries;
 }
-
 
 /* magic numbers from http://www.isthe.com/chongo/tech/comp/fnv/ */
 static const uint32_t InitialFNV  = 2166136261U;
